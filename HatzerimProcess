@@ -1,0 +1,71 @@
+%% SampleEn process:
+
+    maxScale = 10; % The largest Scale
+    scalejump = 2; % The difference between scales
+    dir = 'C:\Users\cognitive\Google Drive\Studies\Thesis\Kaam_Krav_Hatzerim\EEG\subject001';
+    dir2 = '_session';
+    PVT_file = '\EEG_pvt.mat';
+    REST_file = '\EEG_rest.mat';
+    
+    for subject = 1:6
+        load(strcat(dir,num2str(subject),dir2,num2str(1),PVT_file));
+        y = y(:,17:end);
+        PVT1 = y;
+        load(strcat(dir,num2str(subject),dir2,num2str(1),REST_file));
+        y = y(:,17:end);
+        REST1 = y;
+        load(strcat(dir,num2str(subject),dir2,num2str(3),PVT_file));
+        y = y(:,17:end);
+        PVT3 = y;
+        load(strcat(dir,num2str(subject),dir2,num2str(3),REST_file));
+        y = y(:,17:end);
+        REST3 = y;
+    end
+    %         Resize all files according to the smallest one
+    %         N_size = min(size(REST1,2),size(REST5,2),size(PVT1,2),size(PVT5,2);
+    %         REST1 = REST1(:,1:N_size);
+    %         PVT1 = PVT1(:,1:N_size);
+    %         REST5 = REST5(:,1:N_size);
+    %         PVT5 = PVT5(:,1:N_size);
+    %
+    scales = [2 4 6 8 10];
+    for subject = 1:6
+        for electrode = 2:65 % 1st row is time stamp, up to 65 electrodes.
+            for scale = 2:scalejump:maxScale
+                tic
+                % [entropysinglechannel1,scale] = msentropy(PVT1(electrode,:),[],[],[],[],[],[],[],maxScale); % gives 1 x maxScale vector
+                % [entropysinglechannel5,scale] = msentropy(PVT5(electrode,:),[],[],[],[],[],[],[],maxScale); % gives 1 x maxScale vector
+                %                 Grained_PVT1 = CoarseGraining(PVT1(electrode,:),scale);
+                saen(subject,1,electrode,scale) = SampEn(scale,0.2*std(PVT1(electrode,:)),PVT1(electrode,:));
+                %                 Average_Ent(subject,1,scale) = mean(saen(subject,1,electrode));
+                %                 Grained_PVT5 = CoarseGraining(PVT5(electrode,:),scale);
+                saen(subject,2,electrode,scale) = SampEn(scale,0.2*std(PVT3(electrode,:)),PVT3(electrode,:));
+                %                 Average_Ent(subject,2,scale) = mean(saen(subject,2,electrode));
+                %                 Grained_REST1 = CoarseGraining(REST1(electrode,:),scale);
+                saen(subject,3,electrode,scale) = SampEn(scale,0.2*std(REST1(electrode,:)),REST1(electrode,:));
+                %                 Average_Ent(subject,3,scale) = mean(saen(subject,3,electrode));
+                %                 Grained_REST5 = CoarseGraining(REST3(electrode,:),scale);
+                saen(subject,4,electrode,scale) = SampEn(scale,0.2*std(REST3(electrode,:)),REST3(electrode,:));
+                %                 Average_Ent(subject,4,scale) = mean(saen(subject,4,electrode));
+                toc
+                
+            end
+            dis = strcat('Finished Electrode ',num2str(electrode));
+            display(dis);
+            %                 subplot(2,1,1);
+            %                 plot(Average_Ent(1),'Color','r',scales);hold on;grid on;plot(Average_Ent(2),'Color','b');
+            %                 subplot(2,1,2);
+            %                 plot(Average_Ent(3),'Color','r',scales);hold on;grid on;plot(Average_Ent(4),'Color','b');
+            
+            save('saen1', 'saen');
+        end
+        dis2 = strcat('Finished Subject ',num2str(subject));
+        display(dis2)
+        %     else
+        %         % File does not exist.
+        %         warningMessage = sprintf('Warning: file does not exist:\n%s', fullFileName);
+        %         uiwait(msgbox(warningMessage));
+        %     end
+        
+    end
+
