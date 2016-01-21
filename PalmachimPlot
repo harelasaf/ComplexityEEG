@@ -1,0 +1,217 @@
+Function PalmachimPlot
+
+%% Analysis
+% Load PVT data
+
+    load(strcat('C:\Users\Asaf\Google Drive\Studies\Thesis\Katbam_Palmachim\Asaf - PVT DATA.xls'));
+    for subject = 1:8
+        for trial = 1:6
+            PVT_MeanRT(subject,trial) = AsafPVTDATA(subject*6 - (6-trial),21);
+            PVT_Std(subject,trial) = AsafPVTDATA(subject*6 - (6-trial),22);
+        end
+    end
+    
+    
+    load('C:\Users\Asaf\Google Drive\Studies\Thesis\saen1_katbam');
+    saen1_katbam = saen;
+    load('C:\Users\Asaf\Google Drive\Studies\Thesis\saen2_katbam');
+    saen2_katbam = saen;
+    load('C:\Users\Asaf\Google Drive\Studies\Thesis\saen3_katbam');
+    saen3_katbam = saen;
+    load('C:\Users\Asaf\Google Drive\Studies\Thesis\saen4_katbam');
+    saen4_katbam = saen;
+    load('C:\Users\Asaf\Google Drive\Studies\Thesis\saen5_katbam');
+    saen5_katbam = saen;
+    load('C:\Users\Asaf\Google Drive\Studies\Thesis\saen6_katbam');
+    saen6_katbam = saen;
+    load('C:\Users\Asaf\Google Drive\Studies\Thesis\saen7_katbam');
+    saen7_katbam = saen;
+    
+    % Complexity while PVT 1/3
+    sub1pvt1 = mean(squeeze(squeeze(saen1_katbam(1,1,:,:))));
+    sub1pvt1 = sub1pvt1([2 4 6 8 10]);
+    sub1pvt3 = mean(squeeze(squeeze(saen1_katbam(1,2,:,:))));
+    sub1pvt3 = sub1pvt3([2 4 6 8 10]);
+    
+    sub2pvt1 = mean(squeeze(squeeze(saen2_katbam(2,1,:,:))));
+    sub2pvt1 = sub2pvt1([2 4 6 8 10]);
+    sub2pvt3 = mean(squeeze(squeeze(saen2_katbam(2,2,:,:))));
+    sub2pvt3 = sub2pvt3([2 4 6 8 10]);
+    
+    sub3pvt1 = mean(squeeze(squeeze(saen3_katbam(3,1,:,:))));
+    sub3pvt1 = sub3pvt1([2 4 6 8 10]);
+    sub3pvt3 = mean(squeeze(squeeze(saen3_katbam(3,2,:,:))));
+    sub3pvt3 = sub3pvt3([2 4 6 8 10]);
+    
+    sub4pvt1 = mean(squeeze(squeeze(saen4_katbam(4,1,:,:))));
+    sub4pvt1 = sub4pvt1([2 4 6 8 10]);
+    sub4pvt3 = mean(squeeze(squeeze(saen4_katbam(4,2,:,:))));
+    sub4pvt3 = sub4pvt3([2 4 6 8 10]);
+    
+    sub5pvt1 = mean(squeeze(squeeze(saen5_katbam(5,1,:,:))));
+    sub5pvt1 = sub5pvt1([2 4 6 8 10]);
+    sub5pvt3 = mean(squeeze(squeeze(saen5_katbam(5,2,:,:))));
+    sub5pvt3 = sub5pvt3([2 4 6 8 10]);
+    
+    sub6pvt1 = mean(squeeze(squeeze(saen6_katbam(6,1,:,:))));
+    sub6pvt1 = sub6pvt1([2 4 6 8 10]);
+    sub6pvt3 = mean(squeeze(squeeze(saen6_katbam(6,2,:,:))));
+    sub6pvt3 = sub6pvt3([2 4 6 8 10]);
+    
+    % Complexity while Rest 1/3
+    sub1rest1 = mean(squeeze(squeeze(saen1_katbam(1,3,:,:))));
+    sub1rest1 = sub1rest1([2 4 6 8 10]);
+    sub1rest3 = mean(squeeze(squeeze(saen1_katbam(1,4,:,:))));
+    sub1rest3 = sub1rest3([2 4 6 8 10]);
+    
+    sub2rest1 = mean(squeeze(squeeze(saen2_katbam(2,3,:,:))));
+    sub2rest1 = sub2rest1([2 4 6 8 10]);
+    sub2rest3 = mean(squeeze(squeeze(saen2_katbam(2,4,:,:))));
+    sub2rest3 = sub2rest3([2 4 6 8 10]);
+    
+    sub3rest1 = mean(squeeze(squeeze(saen3_katbam(3,3,:,:))));
+    sub3rest1 = sub3rest1([2 4 6 8 10]);
+    sub3rest3 = mean(squeeze(squeeze(saen3_katbam(3,4,:,:))));
+    sub3rest3 = sub3rest3([2 4 6 8 10]);
+    
+    sub4rest1 = mean(squeeze(squeeze(saen4_katbam(4,3,:,:))));
+    sub4rest1 = sub4rest1([2 4 6 8 10]);
+    sub4rest3 = mean(squeeze(squeeze(saen4_katbam(4,4,:,:))));
+    sub4rest3 = sub4rest3([2 4 6 8 10]);
+    
+    sub5rest1 = mean(squeeze(squeeze(saen5_katbam(5,3,:,:))));
+    sub5rest1 = sub5rest1([2 4 6 8 10]);
+    sub5rest3 = mean(squeeze(squeeze(saen5_katbam(5,4,:,:))));
+    sub5rest3 = sub5rest3([2 4 6 8 10]);
+    
+    sub6rest1 = mean(squeeze(squeeze(saen6_katbam(6,3,:,:))));
+    sub6rest1 = sub6rest1([2 4 6 8 10]);
+    sub6rest3 = mean(squeeze(squeeze(saen6_katbam(6,4,:,:))));
+    sub6rest3 = sub6rest3([2 4 6 8 10]);
+    
+    
+    %% Graphs
+    % Reaction time
+    figure; 
+    subplot(2,4,1); 
+    plot(PVT_MeanRT{1,1:6},'r'); title('Sub 1'); xlabel('Session'); ylabel('RT');
+    subplot(2,4,2); 
+    plot(PVT_MeanRT{2,1:6},'g'); title('Sub 2'); xlabel('Session'); ylabel('RT');
+    subplot(2,4,3); 
+    plot(PVT_MeanRT{3,1:6},'c'); title('Sub 3'); xlabel('Session'); ylabel('RT');
+    subplot(2,4,4); 
+    plot(PVT_MeanRT{4,1:6},'m'); title('Sub 4'); xlabel('Session'); ylabel('RT');
+    subplot(2,4,5); 
+    plot(PVT_MeanRT{5,1:6},'k'); title('Sub 5'); xlabel('Session'); ylabel('RT');
+    subplot(2,4,6);  
+    plot(PVT_MeanRT{6,1:6},'b'); title('Sub 6'); xlabel('Session'); ylabel('RT');
+    subplot(2,4,7); 
+    plot(PVT_MeanRT{7,1:6},'y'); title('Sub 7'); xlabel('Session'); ylabel('RT');
+    subplot(2,4,8); 
+    plot(PVT_MeanRT{8,1:6},'b'); title('Sub 8'); xlabel('Session'); ylabel('RT');
+    
+    
+    stdRT = nanstd(PVT(:,1:3));
+    averageRT = nanmean(PVT(:,1:3));
+    
+    PVT_Norm = PVT ./ (PVT(:,1)*ones(1,size(PVT,2)));
+    errorSEM(3) = mean((PVT_Norm(:,3)-PVT_Norm(:,1))/sqrt(6));
+    errorSEM(2) = mean((PVT_Norm(:,2)-PVT_Norm(:,1))/sqrt(6));
+    errorSEM(1) = 0;
+    figure; 
+    errorbar(mean(PVT_Norm(:,1:3)),errorSEM);
+    
+    temp = nan(6,2,26);
+    for sub = 1:6
+        for sess = [1,2]
+            temp(sub,sess,:) = DATA{sub,sess+(sess-1)}.rt(1:26);
+        end
+    end
+    temp1 = nanmean(temp,3);
+    difference = diff(temp1');
+    
+    figure;
+    hold on;
+    plot(PVT(1,1:3),'r'); plot(PVT(2,1:3),'g'); plot(PVT(3,1:3),'c');
+    plot(PVT(4,1:3),'m'); plot(PVT(5,1:3),'k'); plot(PVT(6,1:3),'b');
+    plot(averageRT,'-.ok');legend('Sub1','Sub2','Sub3','Sub4','Sub5','Sub6','Average');
+    set(gca,'xtick',[1 2 3]); set(gca,'xticklabel',char('normal','one-day','two-days')); ylabel('Mean RT');
+    
+    figure;
+    hold on;
+    errorbar(PVT(1,1:3),stdRT(1,1:3)); plot(PVT(2,1:3),'g'); plot(PVT(3,1:3),'c');
+    plot(PVT(4,1:3),'m'); plot(PVT(5,1:3),'k'); plot(PVT(6,1:3),'b');
+    plot(averageRT,'-.ok');legend('Sub1','Sub2','Sub3','Sub4','Sub5','Sub6','Average');
+    set(gca,'xtick',[1 2 3]); set(gca,'xticklabel',char('normal','one-day','two-days')); ylabel('Mean RT');
+    
+    
+    % Complexity in PVT
+    figure;
+    subplot(1,6,1);
+    plot(sub1pvt1,'-.r'); hold on;
+    plot(sub1pvt3,'-.or'); hold off;
+    title('Sub 1 PVT'); xlabel('Scale'); legend('PVT 1','PVT 3');
+    
+    subplot(1,6,2);
+    plot(sub2pvt1,'-.b'); hold on;
+    plot(sub2pvt3,'-.ob'); hold off;
+    title('Sub 2 PVT'); xlabel('Scale'); legend('PVT 1','PVT 3');
+    
+    subplot(1,6,3);
+    plot(sub3pvt1,'-.g'); hold on;
+    plot(sub3pvt3,'-.og'); hold off;
+    title('Sub 3 PVT'); xlabel('Scale'); legend('PVT 1','PVT 3');
+    
+    subplot(1,6,4);
+    plot(sub4pvt1,'-.c'); hold on;
+    plot(sub4pvt3,'-.oc'); hold off;
+    title('Sub 4 PVT'); xlabel('Scale'); legend('PVT 1','PVT 3');
+    
+    subplot(1,6,5);
+    plot(sub5pvt1,'-.k'); hold on;
+    plot(sub5pvt3,'-.ok'); hold off;
+    title('Sub 5 PVT'); xlabel('Scale'); legend('PVT 1','PVT 3');
+    
+    subplot(1,6,6);
+    plot(sub5pvt1,'-.m'); hold on;
+    plot(sub5pvt3,'-.om'); hold off;
+    title('Sub 6 PVT'); xlabel('Scale'); legend('PVT 1','PVT 3');
+    
+    % Complexity in Rest:
+    figure;
+    subplot(1,6,1);
+    plot(sub1rest1,'-.r'); hold on;
+    plot(sub1rest3,'-.or'); hold off;
+    title('Sub 1 Rest');
+    legend('Rest 1','Rest 3');
+    
+    subplot(1,6,2);
+    plot(sub2rest1,'-.b'); hold on;
+    plot(sub2rest3,'-.ob'); hold off;
+    title('Sub 2 Rest');
+    legend('Rest 1','Rest 3');
+    
+    subplot(1,6,3);
+    plot(sub3rest1,'-.g'); hold on;
+    plot(sub3rest3,'-.og'); hold off;
+    title('Sub 3 Rest');
+    legend('Rest 1','Rest 3');
+    
+    subplot(1,6,4);
+    plot(sub4rest1,'-.c'); hold on;
+    plot(sub4rest3,'-.oc'); hold off;
+    title('Sub 4 Rest');
+    legend('Rest 1','Rest 3');
+    
+    subplot(1,6,5);
+    plot(sub5rest1,'-.k'); hold on;
+    plot(sub5rest3,'-.ok'); hold off;
+    title('Sub 5 Rest');
+    legend('Rest 1','Rest 3');
+    
+    subplot(1,6,6);
+    plot(sub6rest1,'-.m'); hold on;
+    plot(sub6rest3,'-.om'); hold off;
+    title('Sub 6 Rest');
+    legend('Rest 1','Rest 3');
+end
